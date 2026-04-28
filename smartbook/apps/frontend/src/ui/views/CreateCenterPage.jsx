@@ -466,7 +466,23 @@ export default function CreateCenterPage() {
 
       const json = await resp.json().catch(() => ({}));
       if (!resp.ok) {
-        throw new Error(json?.error || 'Не удалось создать центр');
+        const details = json?.details;
+        if (details?.fieldErrors || details?.formErrors) {
+          const parts = [];
+          const fe = details.fieldErrors || {};
+          for (const [key, arr] of Object.entries(fe)) {
+            const msg = Array.isArray(arr) ? arr.filter(Boolean).join(', ') : String(arr || '');
+            if (msg) parts.push(`${key}: ${msg}`);
+          }
+          const form = Array.isArray(details.formErrors) ? details.formErrors.filter(Boolean).join(', ') : '';
+          if (form) parts.push(form);
+          if (parts.length) {
+            throw new Error(`Ошибка данных:\n${parts.join('\n')}`);
+          }
+        }
+
+        const msg = json?.error || json?.message || `Не удалось создать центр (HTTP ${resp.status})`;
+        throw new Error(String(msg));
       }
 
       setOk(`Центр создан. Слаг: ${json?.center?.slug || json?.center?.slug || ''}`.trim());
@@ -475,7 +491,17 @@ export default function CreateCenterPage() {
         800
       );
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Ошибка');
+      const raw = e instanceof Error ? e.message : 'Ошибка';
+      const msg = String(raw || '');
+      if (msg.toLowerCase().includes('user already registered')) {
+        setError('Пользователь с таким email уже существует. Войдите в аккаунт или используйте другой email.');
+      } else if (msg.toLowerCase().includes('password') && msg.toLowerCase().includes('weak')) {
+        setError('Слишком простой пароль. Используйте пароль длиной от 6 символов.');
+      } else if (msg.toLowerCase().includes('duplicate') && msg.toLowerCase().includes('slug')) {
+        setError('Центр с таким названием уже существует. Попробуйте другое название.');
+      } else {
+        setError(msg || 'Ошибка');
+      }
     } finally {
       setSubmitting(false);
     }

@@ -263,6 +263,18 @@ export default function LoginPage() {
 
   const canSubmit = useMemo(() => email.trim() && password.trim(), [email, password]);
 
+  function humanizeAuthError(message) {
+    const m = String(message || '').toLowerCase();
+    if (m.includes('invalid login credentials')) return 'Неверный email или пароль.';
+    if (m.includes('email not confirmed')) return 'Подтвердите email и попробуйте снова.';
+    if (m.includes('too many requests')) return 'Слишком много попыток. Попробуйте позже.';
+    if (m.includes('not an admin')) return 'У этого аккаунта нет доступа к панели управления.';
+    if (m.includes('no center attached')) return 'Аккаунт не привязан к центру.';
+    if (m.includes('missing bearer token') || m.includes('invalid token')) return 'Сессия устарела. Войдите заново.';
+    if (m.includes('network') || m.includes('failed to fetch')) return 'Ошибка сети. Проверьте интернет и попробуйте снова.';
+    return String(message || 'Ошибка входа');
+  }
+
   async function resolveDefaultNext(accessToken) {
     const resp = await fetch(`${env.VITE_API_BASE_URL}/api/auth/me`, {
       headers: { Authorization: `Bearer ${accessToken}` },
@@ -271,7 +283,7 @@ export default function LoginPage() {
     const body = await resp.json().catch(() => ({}));
     if (!resp.ok) {
       const msg = body?.error || `Auth error: ${resp.status}`;
-      throw new Error(msg);
+      throw new Error(humanizeAuthError(msg));
     }
 
     if (!body?.center?.slug) return null;
@@ -358,8 +370,8 @@ export default function LoginPage() {
 
                 navigate('/', { replace: true });
               } catch (err) {
-                const message = String(err?.message ?? err ?? 'Ошибка входа');
-                setError(message);
+                const raw = String(err?.message ?? err ?? 'Ошибка входа');
+                setError(humanizeAuthError(raw));
               } finally {
                 setSubmitting(false);
               }
