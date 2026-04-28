@@ -514,20 +514,6 @@ export default function CreateCenterPage() {
               Информация о центре
             </div>
 
-            <div className="cc-logo">
-              <button className="cc-logo-btn" type="button" onClick={pickLogo} aria-label="Загрузить логотип">
-                {logoDataUrl ? <img src={logoDataUrl} alt="Логотип" /> : <CameraIcon />}
-              </button>
-              <div className="cc-logo-hint">Загрузить логотип</div>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                style={{ display: 'none' }}
-                onChange={(e) => onLogoFile(e.target.files?.[0] || null)}
-              />
-            </div>
-
             <div className="cc-grid">
               <div>
                 <div className="cc-label">Название центра</div>
