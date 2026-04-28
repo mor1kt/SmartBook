@@ -1,0 +1,2 @@
+export type CenterId = string;
+

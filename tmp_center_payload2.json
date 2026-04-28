@@ -1,0 +1,33 @@
+﻿{
+    "schedule":  {
+                     "bookingWindowWeeks":  4,
+                     "workStart":  "09:00",
+                     "workEnd":  "18:00",
+                     "consultationIntervalMinutes":  30,
+                     "consultationPrice":  0,
+                     "defaultGroupLimit":  10
+                 },
+    "center":  {
+                   "phone":  "123",
+                   "description":  "desc",
+                   "name":  "Test Center9",
+                   "address":  "Addr",
+                   "logoDataUrl":  null
+               },
+    "owner":  {
+                  "email":  "owner858e98b8be5443449097565651bcec0e@example.com",
+                  "fullName":  "Owner",
+                  "password":  "secret12"
+              },
+    "services":  [
+                     {
+                         "description":  null,
+                         "groupCapacity":  10,
+                         "courseName":  "Course",
+                         "price":  100,
+                         "bookingType":  "group",
+                         "categoryName":  "Cat",
+                         "teacherName":  null
+                     }
+                 ]
+}

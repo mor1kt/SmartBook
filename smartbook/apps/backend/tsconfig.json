@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "ignoreDeprecations": "5.0",
+    "rootDir": "src",
+    "outDir": "dist",
+    "esModuleInterop": true,      // Чтобы работал импорт из консоли и других либ
+    "skipLibCheck": true,         // Ускоряет компиляцию
+    "forceConsistentCasingInFileNames": true
+  },
+  "ts-node": {
+    "esm": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts"],
+  "exclude": ["dist", "node_modules", "src/**/*.js"]
+}
