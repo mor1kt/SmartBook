@@ -569,7 +569,7 @@ export default function HomePage() {
 
           <p className="sb-subtitle">
             Управляйте учениками, расписанием и регистрациями в одном месте. Хватит
-            бороться с таблицами — начните увеличивать набор.
+            бороться с таблицами - начните увеличивать набор.
           </p>
 
           <div className="sb-mockup-wrap" aria-hidden="true">
