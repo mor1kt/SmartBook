@@ -18,4 +18,3 @@ export const env: Env = {
   VITE_SUPABASE_ANON_KEY: getEnv('VITE_SUPABASE_ANON_KEY'),
   VITE_API_BASE_URL: getEnv('VITE_API_BASE_URL'),
 };
-
