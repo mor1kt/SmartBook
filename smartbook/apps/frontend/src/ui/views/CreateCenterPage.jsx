@@ -458,7 +458,7 @@ export default function CreateCenterPage() {
         },
       };
 
-      const resp = await fetch(`${env.VITE_API_BASE_URL}/api/centers`, {
+      const resp = await fetch(`${env.VITE_API_BASE_URL}/centers`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
