@@ -7,7 +7,9 @@
     "types": ["vite/client"],
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "noEmit": true
+    "noEmit": true,
+    "verbatimModuleSyntax": false, // Отключаем строгую проверку синтаксиса модулей
+    "skipLibCheck": true
   },
   "include": ["src", "vite.config.ts"],
   "exclude": ["dist", "node_modules"]
