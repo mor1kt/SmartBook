@@ -228,6 +228,18 @@ const css = `
   font-weight:1000;
 }
 .ap-footer a:hover{ text-decoration:underline; }
+.ap-logout{
+  margin-top: 14px;
+  width: 100%;
+  max-width: 320px;
+  border: 1px solid var(--ap-border);
+  background: white;
+  border-radius: 16px;
+  padding: 12px 14px;
+  font-weight: 1000;
+  cursor: pointer;
+}
+.ap-logout:hover{ filter: brightness(0.99); }
 
 .ap-lists{ margin-top:18px; display:grid; gap:14px; }
 .ap-divider{
@@ -1215,6 +1227,19 @@ export default function CenterAdminPage() {
             >
               Войти как Админ
             </a>
+
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <button
+                className="ap-logout"
+                type="button"
+                onClick={async () => {
+                  await supabase.auth.signOut();
+                  navigate('/', { replace: true });
+                }}
+              >
+                Выйти из аккаунта
+              </button>
+            </div>
           </footer>
         </main>
       </div>
