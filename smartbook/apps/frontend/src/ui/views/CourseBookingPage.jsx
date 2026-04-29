@@ -569,7 +569,7 @@ export default function CourseBookingPage() {
                     <div className="bk-label">Номер телефона</div>
                     <input
                       className="bk-input"
-                      placeholder="+7 (900) 000-0000"
+                      placeholder="+7 (000) 000-00-00"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                     />

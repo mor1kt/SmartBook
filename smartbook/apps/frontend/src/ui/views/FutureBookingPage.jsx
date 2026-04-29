@@ -222,7 +222,7 @@ export default function FutureBookingPage() {
             <div className="fb-label">Контактный номер</div>
             <input
               className="fb-input"
-              placeholder="+7 (999) 000-0000"
+              placeholder="+7 (000) 000-00-00"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
             />

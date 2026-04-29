@@ -545,7 +545,7 @@ export default function CreateCenterPage() {
                 <div className="cc-label">Название центра</div>
                 <input
                   className="cc-input"
-                  placeholder="например, YourTeacher"
+                  placeholder="Например, YourTeacher"
                   value={centerName}
                   onChange={(e) => setCenterName(e.target.value)}
                 />
@@ -565,7 +565,7 @@ export default function CreateCenterPage() {
                 <div className="cc-label">Контактный телефон</div>
                 <input
                   className="cc-input"
-                  placeholder="+7 (999) 000-00-00"
+                  placeholder="+7 (000) 000-00-00"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                 />
@@ -615,7 +615,7 @@ export default function CreateCenterPage() {
                 <input
                   className="cc-input"
                   type="password"
-                  placeholder="••••••••"
+                  placeholder="Введите пароль"
                   value={ownerPassword}
                   onChange={(e) => setOwnerPassword(e.target.value)}
                 />
@@ -625,7 +625,7 @@ export default function CreateCenterPage() {
                 <input
                   className="cc-input"
                   type="password"
-                  placeholder="••••••••"
+                  placeholder="Подтвердите пароль"
                   value={ownerPassword2}
                   onChange={(e) => setOwnerPassword2(e.target.value)}
                 />
@@ -657,7 +657,7 @@ export default function CreateCenterPage() {
                     <div className="cc-label">Название категории</div>
                     <input
                       className="cc-input"
-                      placeholder="Математика"
+                      placeholder="Напишите категорию"
                       value={s.categoryName}
                       onChange={(e) => updateService(idx, { categoryName: e.target.value })}
                     />
@@ -667,7 +667,7 @@ export default function CreateCenterPage() {
                     <div className="cc-label">Название предмета</div>
                     <input
                       className="cc-input"
-                      placeholder="Алгебра"
+                      placeholder="Напишите предмет"
                       value={s.courseName}
                       onChange={(e) => updateService(idx, { courseName: e.target.value })}
                     />
@@ -698,7 +698,7 @@ export default function CreateCenterPage() {
                       <input
                         className="cc-input"
                         inputMode="numeric"
-                        placeholder="5000"
+                        placeholder="0"
                         value={s.price}
                         onChange={(e) => updateService(idx, { price: e.target.value })}
                       />
@@ -722,7 +722,7 @@ export default function CreateCenterPage() {
                     <div className="cc-label">Описание</div>
                     <textarea
                       className="cc-textarea"
-                      placeholder="Интенсивное занятие 1 на 1, ориентированное на ваши личные цели..."
+                      placeholder="Напишите подробное описание курса..."
                       value={s.description}
                       onChange={(e) => updateService(idx, { description: e.target.value })}
                     />
@@ -732,7 +732,7 @@ export default function CreateCenterPage() {
                     <div className="cc-label">Имя учителя</div>
                     <input
                       className="cc-input"
-                      placeholder="Иван Николаевич"
+                      placeholder="Например, Иван Николаевич"
                       value={s.teacherName}
                       onChange={(e) => updateService(idx, { teacherName: e.target.value })}
                     />

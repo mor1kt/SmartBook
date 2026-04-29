@@ -445,7 +445,7 @@ export default function IndividualConsultationPage() {
               <div className="ic-label">ФИО</div>
               <input
                 className="ic-input"
-                placeholder="Напр. Алексей Иванов"
+                placeholder="Например, Алексей Иванов"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
               />
@@ -455,7 +455,7 @@ export default function IndividualConsultationPage() {
               <div className="ic-label">Номер телефона</div>
               <input
                 className="ic-input"
-                placeholder="+7 (900) 000-00-00"
+                placeholder="+7 (000) 000-00-00"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
               />
