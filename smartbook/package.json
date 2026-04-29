@@ -1,6 +1,7 @@
 {
   "name": "smartbook",
   "private": true,
+  "type": "module",
   "workspaces": [
     "apps/*"
   ],

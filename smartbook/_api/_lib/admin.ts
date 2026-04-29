@@ -1,6 +1,6 @@
-import { getBearer } from './http';
-import { resolveCenterBySlug } from './center';
-import { supabaseService } from './supabase';
+import { getBearer } from './http.js';
+import { resolveCenterBySlug } from './center.js';
+import { supabaseService } from './supabase.js';
 
 export async function requireAdmin(req: any, slug: string) {
   const token = getBearer(req);

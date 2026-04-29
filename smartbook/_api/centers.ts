@@ -1,5 +1,5 @@
-import { sendJson } from './_lib/http';
-import { supabaseService } from './_lib/supabase';
+import { sendJson } from './_lib/http.js';
+import { supabaseService } from './_lib/supabase.js';
 
 function slugify(name: string) {
   return name

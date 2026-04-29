@@ -1,4 +1,4 @@
-import { supabaseService } from './supabase';
+import { supabaseService } from './supabase.js';
 
 export async function resolveCenterBySlug(slug: string) {
   const supabase = supabaseService();
