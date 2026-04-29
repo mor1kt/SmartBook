@@ -511,7 +511,7 @@ export default function HomePage() {
           return;
         }
 
-        const resp = await fetch(`${env.VITE_API_BASE_URL}/api/auth/me`, {
+        const resp = await fetch(`/api/auth/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const body = await resp.json().catch(() => ({}));
