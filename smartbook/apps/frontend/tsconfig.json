@@ -11,6 +11,6 @@
     "verbatimModuleSyntax": false, // Отключаем строгую проверку синтаксиса модулей
     "skipLibCheck": true
   },
-  "include": ["src", "vite.config.ts"],
+  "include": ["src", "vite.config.ts", "api", "_lib"],
   "exclude": ["dist", "node_modules"]
 }

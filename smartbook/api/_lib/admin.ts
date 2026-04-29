@@ -1,5 +1,5 @@
-import { getBearer } from './http.js';
 import { resolveCenterBySlug } from './center.js';
+import { getBearer } from './http.js';
 import { supabaseService } from './supabase.js';
 
 export async function requireAdmin(req: any, slug: string) {

@@ -2,6 +2,6 @@
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/c/(.*)", "destination": "/api/c/$1" },
-    { "source": "/(.*)", "destination": "/" }
+    { "source": "/(.*)", "destination": "/frontend/$1" }
   ]
 }
