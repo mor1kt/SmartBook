@@ -3,23 +3,16 @@
   publish = "apps/frontend/dist"
 
 [functions]
-  # Просто указываем папку, Netlify сам поймет, что это TS и соберет их
+  # Если Base directory = smartbook, то путь к api указываем от него
   directory = "api"
 
 [[redirects]]
-  # Явное правило для вложенных путей типа /auth/me
-  from = "/api/auth/:method"
-  to = "/.netlify/functions/auth-:method"
+  from = "/api/auth/me"
+  to = "/.netlify/functions/auth-me"
   status = 200
+  force = true
 
 [[redirects]]
-  # Общее правило для всех остальных функций в корне /api
   from = "/api/*"
   to = "/.netlify/functions/:splat"
-  status = 200
-
-[[redirects]]
-  # Для React SPA
-  from = "/*"
-  to = "/index.html"
   status = 200
