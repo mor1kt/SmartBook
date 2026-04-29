@@ -18,7 +18,7 @@ function toYmd(date: Date) {
 function utcIsoFromYmdHm(ymd: string, hm: string) {
   const [y, m, d] = ymd.split('-').map((v) => Number.parseInt(v, 10));
   const [hh, mm] = hm.split(':').map((v) => Number.parseInt(v, 10));
-  const dt = new Date(Date.UTC(y, m - 1, d, hh, mm, 0, 0));
+  const dt = new Date(Date.UTC(y!, m! - 1, d, hh, mm, 0, 0));
   return dt.toISOString();
 }
 
@@ -30,7 +30,7 @@ function addMinutesUtcIso(iso: string, minutes: number) {
 function minutesBetweenHHMM(a: string, b: string) {
   const [ah, am] = a.split(':').map((v) => Number.parseInt(v, 10));
   const [bh, bm] = b.split(':').map((v) => Number.parseInt(v, 10));
-  return bh * 60 + bm - (ah * 60 + am);
+  return bh! * 60 + bm! - (ah! * 60 + am!);
 }
 
 export default async function handler(req: any, res: any) {

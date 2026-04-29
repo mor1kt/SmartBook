@@ -1,6 +1,6 @@
-import { sendJson } from '../../../../../_lib/http';
-import { supabaseService } from '../../../../../_lib/supabase';
-import { requireAdmin } from '../../../../../_lib/admin';
+import { sendJson } from '../../../../_lib/http.js';
+import { supabaseService } from '../../../../_lib/supabase.js';
+import { requireAdmin } from '../../../../_lib/admin.js';
 
 export default async function handler(req: any, res: any) {
   if (req.method !== 'PATCH') return sendJson(res, 405, { error: 'Method not allowed' });
