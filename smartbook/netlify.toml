@@ -1,0 +1,27 @@
+[build]
+  command = "npm run build -w apps/frontend"
+  publish = "apps/frontend/dist"
+
+[functions]
+  # Указываем, где лежат функции (ваши файлы в /api)
+  directory = "api"
+  # Это поможет Netlify понять, что это Node.js функции
+  node_bundle = true
+
+[[redirects]]
+  # Чтобы API работало
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+[[redirects]]
+  # Чтобы работал ваш сокращенный путь /c/
+  from = "/c/*"
+  to = "/.netlify/functions/c/:splat"
+  status = 200
+
+[[redirects]]
+  # Для React: перенаправлять все остальные запросы на index.html
+  from = "/*"
+  to = "/index.html"
+  status = 200
