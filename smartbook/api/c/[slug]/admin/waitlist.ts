@@ -1,6 +1,6 @@
-import { sendJson } from '../../../_lib/http';
-import { supabaseService } from '../../../_lib/supabase';
-import { requireAdmin } from '../../../_lib/admin';
+import { sendJson } from '../../../_lib/http.js';
+import { supabaseService } from '../../../_lib/supabase.js';
+import { requireAdmin } from '../../../_lib/admin.js';
 
 export default async function handler(req: any, res: any) {
   if (req.method !== 'GET') return sendJson(res, 405, { error: 'Method not allowed' });
@@ -14,8 +14,8 @@ export default async function handler(req: any, res: any) {
 
     const supabase = supabaseService();
     const { data, error } = await supabase
-      .from('bookings')
-      .select('*, courses ( name, booking_type ), time_slots ( starts_at, ends_at )')
+      .from('waitlist_requests')
+      .select('*, courses ( name )')
       .eq('center_id', admin.center.id)
       .order('created_at', { ascending: false });
 
@@ -25,4 +25,3 @@ export default async function handler(req: any, res: any) {
     return sendJson(res, 500, { error: e?.message ?? 'Internal Server Error' });
   }
 }
-

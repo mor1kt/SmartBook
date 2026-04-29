@@ -1,6 +1,6 @@
-import { sendJson } from '../../_lib/http';
-import { supabaseService } from '../../_lib/supabase';
-import { resolveCenterBySlug } from '../../_lib/center';
+import { sendJson } from '../../_lib/http.js';
+import { supabaseService } from '../../_lib/supabase.js';
+import { resolveCenterBySlug } from '../../_lib/center.js';
 
 type CourseRow = {
   id: string;
@@ -35,7 +35,9 @@ export default async function handler(req: any, res: any) {
           .order('created_at', { ascending: true }),
         supabase
           .from('courses')
-          .select('id,category_id,name,description,teacher_name,price,booking_type,group_capacity,is_active')
+          .select(
+            'id,category_id,name,description,teacher_name,price,booking_type,group_capacity,is_active',
+          )
           .eq('center_id', centerId)
           .eq('is_active', true)
           .order('created_at', { ascending: true }),
@@ -63,21 +65,19 @@ export default async function handler(req: any, res: any) {
           categoryId: cat.id,
           categoryName: cat.name,
           description,
-          groupCourse:
-            groupCourse && {
-              id: groupCourse.id,
-              name: groupCourse.name,
-              price: groupCourse.price,
-              groupCapacity: groupCourse.group_capacity,
-              teacherName: groupCourse.teacher_name,
-            },
-          individualCourse:
-            individualCourse && {
-              id: individualCourse.id,
-              name: individualCourse.name,
-              price: individualCourse.price,
-              teacherName: individualCourse.teacher_name,
-            },
+          groupCourse: groupCourse && {
+            id: groupCourse.id,
+            name: groupCourse.name,
+            price: groupCourse.price,
+            groupCapacity: groupCourse.group_capacity,
+            teacherName: groupCourse.teacher_name,
+          },
+          individualCourse: individualCourse && {
+            id: individualCourse.id,
+            name: individualCourse.name,
+            price: individualCourse.price,
+            teacherName: individualCourse.teacher_name,
+          },
         };
       })
       .filter(Boolean);
@@ -87,4 +87,3 @@ export default async function handler(req: any, res: any) {
     return sendJson(res, 500, { error: e?.message ?? 'Internal Server Error' });
   }
 }
-

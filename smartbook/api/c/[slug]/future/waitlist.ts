@@ -1,6 +1,6 @@
-import { sendJson } from '../../../_lib/http';
-import { supabaseService } from '../../../_lib/supabase';
-import { resolveCenterBySlug } from '../../../_lib/center';
+import { sendJson } from '../../../_lib/http.js';
+import { supabaseService } from '../../../_lib/supabase.js';
+import { resolveCenterBySlug } from '../../../_lib/center.js';
 
 async function ensureFutureCourse(supabase: any, centerId: string) {
   const categoryName = 'Будущие записи';
@@ -93,4 +93,3 @@ export default async function handler(req: any, res: any) {
     return sendJson(res, 500, { error: e?.message ?? 'Internal Server Error' });
   }
 }
-

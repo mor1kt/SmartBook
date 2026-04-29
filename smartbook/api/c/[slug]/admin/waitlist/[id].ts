@@ -1,31 +1,36 @@
-import { sendJson } from '../../../_lib/http';
-import { supabaseService } from '../../../_lib/supabase';
-import { requireAdmin } from '../../../_lib/admin';
+import { sendJson } from '../../../../_lib/http.js';
+import { supabaseService } from '../../../../_lib/supabase.js';
+import { requireAdmin } from '../../../../_lib/admin.js';
 
 export default async function handler(req: any, res: any) {
   if (req.method !== 'PATCH') return sendJson(res, 405, { error: 'Method not allowed' });
 
   try {
     const slug = String(req.query?.slug || '').trim();
+    const id = String(req.query?.id || '').trim();
     if (!slug) return sendJson(res, 400, { error: 'Missing slug' });
+    if (!id) return sendJson(res, 400, { error: 'Missing id' });
+
+    const status = req.body?.status;
+    if (status !== 'waiting' && status !== 'processed') {
+      return sendJson(res, 400, { error: 'Invalid status' });
+    }
 
     const admin = await requireAdmin(req, slug);
     if (!admin.ok) return sendJson(res, admin.status, { error: admin.error });
 
-    const scheduleSettings = req.body?.scheduleSettings ?? req.body ?? {};
-
     const supabase = supabaseService();
     const { data, error } = await supabase
-      .from('centers')
-      .update({ schedule_settings: scheduleSettings })
-      .eq('id', admin.center.id)
-      .select('id,slug,name,schedule_settings')
+      .from('waitlist_requests')
+      .update({ status })
+      .eq('id', id)
+      .eq('center_id', admin.center.id)
+      .select('*, courses ( name )')
       .single();
 
     if (error) return sendJson(res, 500, { error: error.message });
-    return sendJson(res, 200, { center: { id: data.id, slug: data.slug, name: data.name }, scheduleSettings: data.schedule_settings });
+    return sendJson(res, 200, data);
   } catch (e: any) {
     return sendJson(res, 500, { error: e?.message ?? 'Internal Server Error' });
   }
 }
-

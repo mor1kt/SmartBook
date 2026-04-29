@@ -234,13 +234,15 @@ const css = `
 .sb-action {
   border: 1px solid var(--sb-border);
   border-radius: 20px;
-  padding: 18px 16px;
+  padding: 28px 36px;
   background: white;
   box-shadow: 0 10px 26px rgba(15, 23, 42, 0.06);
   display: grid;
   gap: 12px;
   margin-bottom: 14px;
 }
+
+.sb-action.hidden { display: none}
 
 .sb-action-top {
   display: flex;
@@ -511,7 +513,7 @@ export default function HomePage() {
           return;
         }
 
-        const resp = await fetch(`/api/auth/me`, {
+        const resp = await fetch(`${env.VITE_API_BASE_URL}/api/auth/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const body = await resp.json().catch(() => ({}));
@@ -611,9 +613,8 @@ export default function HomePage() {
         </section>
 
         <section className="sb-section" aria-label="Действия">
-          <article className="sb-action">
-            <div className="sb-action-top">
-
+          <article className={`sb-action ${isAuthed ? 'hidden' : ''}`}>
+            <div className="sb-action-top" >
               <div>
                 <div className="sb-action-title">Создать центр</div>
                 <p className="sb-action-desc">

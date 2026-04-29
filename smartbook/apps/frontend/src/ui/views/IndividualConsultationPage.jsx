@@ -50,6 +50,9 @@ const css = `
   box-shadow: var(--ic-shadow-2);
   padding:16px;
 }
+
+.ap-brand{ font-weight:1000; letter-spacing:-0.02em; }
+
 .ic-badge{
   font-size:11px;
   letter-spacing:.14em;
@@ -372,7 +375,15 @@ export default function IndividualConsultationPage() {
       <style>{css}</style>
       <div className="ic-shell">
         <header className="ic-topbar">
-          <div className="ic-brand">SmartBook</div>
+          <button
+            className="ap-brand"
+            type="button"
+            onClick={() => navigate('/')}
+            style={{ border: 0, background: 'transparent', cursor: 'pointer', padding: 0 }}
+            aria-label="SmartBook"
+          >
+            SmartBook
+          </button>
           <div className="ic-avatar" aria-hidden="true">
             <UserIcon />
           </div>
@@ -428,7 +439,7 @@ export default function IndividualConsultationPage() {
 
           <section className="ic-form" aria-label="Ваши данные">
             <h3>Ваши данные</h3>
-            <p>Подтверждение придет в SMS и по QR-коду.</p>
+            <p>Заполните ваши данные</p>
 
             <div className="ic-field">
               <div className="ic-label">ФИО</div>

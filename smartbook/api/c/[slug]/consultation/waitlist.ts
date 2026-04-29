@@ -1,6 +1,6 @@
-import { sendJson } from '../../../_lib/http';
-import { supabaseService } from '../../../_lib/supabase';
-import { resolveCenterBySlug } from '../../../_lib/center';
+import { sendJson } from '../../../_lib/http.js';
+import { supabaseService } from '../../../_lib/supabase.js';
+import { resolveCenterBySlug } from '../../../_lib/center.js';
 
 function parseTimeHHMM(value: any, fallback: string) {
   const raw = String(value ?? '').trim();
@@ -44,7 +44,11 @@ async function ensureConsultationCourse(supabase: any, centerId: string, price: 
   if (existing?.id) {
     const currentPrice = Number(existing.price ?? 0);
     if (Number.isFinite(price) && currentPrice !== price) {
-      await supabase.from('courses').update({ price }).eq('id', existing.id).eq('center_id', centerId);
+      await supabase
+        .from('courses')
+        .update({ price })
+        .eq('id', existing.id)
+        .eq('center_id', centerId);
     }
     return String(existing.id);
   }
@@ -88,10 +92,17 @@ export default async function handler(req: any, res: any) {
     if (!center) return sendJson(res, 404, { error: 'Center not found' });
 
     const ss: any = (center as any).schedule_settings ?? {};
-    const consultationPrice = Math.max(0, Number.parseInt(String(ss.consultationPrice ?? '0'), 10) || 0);
+    const consultationPrice = Math.max(
+      0,
+      Number.parseInt(String(ss.consultationPrice ?? '0'), 10) || 0,
+    );
     parseTimeHHMM(ss.workStart, '09:00'); // keep parse for validation symmetry
 
-    const courseId = await ensureConsultationCourse(supabase, (center as any).id, consultationPrice);
+    const courseId = await ensureConsultationCourse(
+      supabase,
+      (center as any).id,
+      consultationPrice,
+    );
     const message = `slot:${starts_at}|${ends_at}`;
 
     const { data: existingRows, error: existingError } = await supabase

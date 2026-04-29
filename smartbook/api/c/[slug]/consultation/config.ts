@@ -1,5 +1,5 @@
-import { sendJson } from '../../../_lib/http';
-import { resolveCenterBySlug } from '../../../_lib/center';
+import { sendJson } from '../../../_lib/http.js';
+import { resolveCenterBySlug } from '../../../_lib/center.js';
 
 function parseTimeHHMM(value: any, fallback: string) {
   const raw = String(value ?? '').trim();
@@ -20,16 +20,30 @@ export default async function handler(req: any, res: any) {
     const ss: any = (center as any).schedule_settings ?? {};
     const workStart = parseTimeHHMM(ss.workStart, '09:00');
     const workEnd = parseTimeHHMM(ss.workEnd, '18:00');
-    const intervalMinutes = Math.max(15, Number.parseInt(String(ss.consultationIntervalMinutes ?? '30'), 10) || 30);
-    const consultationPrice = Math.max(0, Number.parseInt(String(ss.consultationPrice ?? '0'), 10) || 0);
-    const bookingWindowWeeks = Math.max(1, Number.parseInt(String(ss.bookingWindowWeeks ?? '4'), 10) || 4);
+    const intervalMinutes = Math.max(
+      15,
+      Number.parseInt(String(ss.consultationIntervalMinutes ?? '30'), 10) || 30,
+    );
+    const consultationPrice = Math.max(
+      0,
+      Number.parseInt(String(ss.consultationPrice ?? '0'), 10) || 0,
+    );
+    const bookingWindowWeeks = Math.max(
+      1,
+      Number.parseInt(String(ss.bookingWindowWeeks ?? '4'), 10) || 4,
+    );
 
     return sendJson(res, 200, {
       center: { id: (center as any).id, slug: (center as any).slug, name: (center as any).name },
-      scheduleSettings: { workStart, workEnd, intervalMinutes, consultationPrice, bookingWindowWeeks },
+      scheduleSettings: {
+        workStart,
+        workEnd,
+        intervalMinutes,
+        consultationPrice,
+        bookingWindowWeeks,
+      },
     });
   } catch (e: any) {
     return sendJson(res, 500, { error: e?.message ?? 'Internal Server Error' });
   }
 }
-

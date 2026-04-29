@@ -201,7 +201,7 @@ export default function FutureBookingPage() {
       <div className="fb-shell">
         <header className="fb-topbar">
           <div className="fb-brand">SmartBook</div>
-          <div className="fb-avatar" aria-hidden="true">
+          <div className="fb-avatar" aria-hidden="true" onClick={() => navigate('/')}>
             <UserIcon />
           </div>
         </header>
@@ -215,7 +215,7 @@ export default function FutureBookingPage() {
             <span className="accent">будущее</span>
           </h1>
           <p className="fb-sub">
-            Наши группы быстро заполняются. Запишитесь в лист ожидания, и мы сообщим вам о свободном месте.
+            Запишитесь в лист ожидания, и мы с вами свяжемся в нужное время.
           </p>
 
           <section className="fb-card" aria-label="Форма записи на будущее">

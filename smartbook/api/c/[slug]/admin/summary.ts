@@ -1,6 +1,6 @@
-import { sendJson } from '../../../_lib/http';
-import { supabaseService } from '../../../_lib/supabase';
-import { requireAdmin } from '../../../_lib/admin';
+import { sendJson } from '../../../_lib/http.js';
+import { supabaseService } from '../../../_lib/supabase.js';
+import { requireAdmin } from '../../../_lib/admin.js';
 
 export default async function handler(req: any, res: any) {
   if (req.method !== 'GET') return sendJson(res, 405, { error: 'Method not allowed' });
@@ -44,7 +44,8 @@ export default async function handler(req: any, res: any) {
 
     if (groupCountRes.error) return sendJson(res, 500, { error: groupCountRes.error.message });
     if (waitCountRes.error) return sendJson(res, 500, { error: waitCountRes.error.message });
-    if (futureWaitCountRes.error) return sendJson(res, 500, { error: futureWaitCountRes.error.message });
+    if (futureWaitCountRes.error)
+      return sendJson(res, 500, { error: futureWaitCountRes.error.message });
     if (futureCountRes.error) return sendJson(res, 500, { error: futureCountRes.error.message });
 
     return sendJson(res, 200, {
@@ -60,4 +61,3 @@ export default async function handler(req: any, res: any) {
     return sendJson(res, 500, { error: e?.message ?? 'Internal Server Error' });
   }
 }
-

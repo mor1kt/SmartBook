@@ -276,7 +276,7 @@ export default function LoginPage() {
   }
 
   async function resolveDefaultNext(accessToken) {
-    const resp = await fetch(`/_api/auth/me`, {
+    const resp = await fetch(`${env.VITE_API_BASE_URL}/api/auth/me`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
 

@@ -36,7 +36,7 @@ const css = `
   align-items:center;
   justify-content:space-between;
 }
-.ap-brand{ font-weight:900; letter-spacing:-0.02em; }
+.ap-brand{ font-weight:1000; letter-spacing:-0.02em; }
 .ap-avatar{
   width:34px; height:34px;
   border-radius:999px;
@@ -663,8 +663,9 @@ export default function CenterAdminPage() {
         booking_type: bookingType,
         price: parseIntSafe(price, 0),
         group_capacity: bookingType === 'group' ? parseIntSafe(groupLimit, 10) : null,
-        description: combinedDescription,
+        description: baseDescription,
         teacher_name: String(teacherName || '').trim() || null,
+        teacher_info: String(teacherNote || '').trim() || null,
         is_active: true,
       };
 

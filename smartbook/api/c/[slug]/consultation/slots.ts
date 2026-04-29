@@ -1,6 +1,6 @@
-import { sendJson } from '../../../_lib/http';
-import { supabaseService } from '../../../_lib/supabase';
-import { resolveCenterBySlug } from '../../../_lib/center';
+import { sendJson } from '../../../_lib/http.js';
+import { supabaseService } from '../../../_lib/supabase.js';
+import { resolveCenterBySlug } from '../../../_lib/center.js';
 
 function parseTimeHHMM(value: any, fallback: string) {
   const raw = String(value ?? '').trim();
@@ -30,7 +30,7 @@ function addMinutesUtcIso(iso: string, minutes: number) {
 function minutesBetweenHHMM(a: string, b: string) {
   const [ah, am] = a.split(':').map((v) => Number.parseInt(v, 10));
   const [bh, bm] = b.split(':').map((v) => Number.parseInt(v, 10));
-  return (bh * 60 + bm) - (ah * 60 + am);
+  return bh * 60 + bm - (ah * 60 + am);
 }
 
 export default async function handler(req: any, res: any) {
@@ -47,20 +47,30 @@ export default async function handler(req: any, res: any) {
     const ss: any = (center as any).schedule_settings ?? {};
     const workStart = parseTimeHHMM(ss.workStart, '09:00');
     const workEnd = parseTimeHHMM(ss.workEnd, '18:00');
-    const intervalMinutes = Math.max(15, Number.parseInt(String(ss.consultationIntervalMinutes ?? '30'), 10) || 30);
-    const bookingWindowWeeks = Math.max(1, Number.parseInt(String(ss.bookingWindowWeeks ?? '4'), 10) || 4);
+    const intervalMinutes = Math.max(
+      15,
+      Number.parseInt(String(ss.consultationIntervalMinutes ?? '30'), 10) || 30,
+    );
+    const bookingWindowWeeks = Math.max(
+      1,
+      Number.parseInt(String(ss.bookingWindowWeeks ?? '4'), 10) || 4,
+    );
 
     const totalMinutes = minutesBetweenHHMM(workStart, workEnd);
     if (totalMinutes <= 0) return sendJson(res, 400, { error: 'Invalid working hours' });
 
     const now = new Date();
-    const maxDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 0, 0, 0, 0));
+    const maxDate = new Date(
+      Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 0, 0, 0, 0),
+    );
     maxDate.setUTCDate(maxDate.getUTCDate() + bookingWindowWeeks * 7);
     const maxYmd = toYmd(maxDate);
 
     const days: Array<{ date: string; slots: any[] }> = [];
     for (let i = 0; i < 7; i += 1) {
-      const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 0, 0, 0, 0));
+      const d = new Date(
+        Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 0, 0, 0, 0),
+      );
       d.setUTCDate(d.getUTCDate() + i);
       const ymd = toYmd(d);
       if (ymd > maxYmd) break;
@@ -105,9 +115,12 @@ export default async function handler(req: any, res: any) {
       })),
     }));
 
-    return sendJson(res, 200, { center: { id: (center as any).id, slug: (center as any).slug, name: (center as any).name }, intervalMinutes, days: outDays });
+    return sendJson(res, 200, {
+      center: { id: (center as any).id, slug: (center as any).slug, name: (center as any).name },
+      intervalMinutes,
+      days: outDays,
+    });
   } catch (e: any) {
     return sendJson(res, 500, { error: e?.message ?? 'Internal Server Error' });
   }
 }
-

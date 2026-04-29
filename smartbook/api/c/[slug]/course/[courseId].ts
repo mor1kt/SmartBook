@@ -1,6 +1,6 @@
-import { sendJson } from '../../../_lib/http';
-import { resolveCenterBySlug } from '../../../_lib/center';
-import { supabaseService } from '../../../_lib/supabase';
+import { sendJson } from '../../../_lib/http.js';
+import { resolveCenterBySlug } from '../../../_lib/center.js';
+import { supabaseService } from '../../../_lib/supabase.js';
 
 export default async function handler(req: any, res: any) {
   if (req.method !== 'GET') return sendJson(res, 405, { error: 'Method not allowed' });
@@ -24,7 +24,9 @@ export default async function handler(req: any, res: any) {
           .single(),
         supabase
           .from('courses')
-          .select('id,center_id,category_id,name,description,teacher_name,price,booking_type,group_capacity,is_active')
+          .select(
+            'id,center_id,category_id,name,description,teacher_name,teacher_info,price,booking_type,group_capacity,is_active',
+          )
           .eq('id', courseId)
           .eq('center_id', center.id)
           .single(),
@@ -49,4 +51,3 @@ export default async function handler(req: any, res: any) {
     return sendJson(res, 500, { error: e?.message ?? 'Internal Server Error' });
   }
 }
-

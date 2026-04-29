@@ -78,7 +78,10 @@ const css = `
 .bk-avatar img { width: 100%; height: 100%; object-fit: cover; }
 .bk-avatar-fallback { font-weight: 900; color: var(--bk-blue); font-size: 13px; }
 
-.bk-main { padding: 18px 16px 26px; }
+.bk-main {
+  padding: 18px 16px 26px;
+  align-items: center;
+}
 
 .bk-kicker {
   display: inline-flex;
@@ -405,6 +408,11 @@ export default function CourseBookingPage() {
     return raw || 'ФИО учителя';
   }, [course?.teacher_name]);
 
+  const teacherNote = useMemo(() => {
+    const raw = course?.teacher_info ? String(course.teacher_info) : '';
+    return raw || 'Описание учителя';
+  }, [course?.teacher_info]);
+
   const onSubmit = async () => {
     if (!course?.id) return;
     if (!String(name).trim() || !String(phone).trim()) {
@@ -515,10 +523,10 @@ export default function CourseBookingPage() {
                   <div className="bk-teacher-avatar">{firstLetter(teacherName)}</div>
                   <div>
                     <div className="bk-teacher-name">{teacherName}</div>
-                    <div className="bk-teacher-role">Мастер-учитель</div>
+                    <div className="bk-teacher-role">Учитель</div>
                   </div>
                 </div>
-                <div className="bk-teacher-desc">Описание учителя</div>
+                <div className="bk-teacher-desc">{teacherNote}</div>
               </section>
 
               <section className="bk-card bk-schedule" aria-label="Расписание на неделю">

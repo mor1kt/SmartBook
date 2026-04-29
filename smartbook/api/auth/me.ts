@@ -1,5 +1,5 @@
-import { sendJson, getBearer } from '../_lib/http';
-import { supabaseService } from '../_lib/supabase';
+import { sendJson, getBearer } from '../_lib/http.js';
+import { supabaseService } from '../_lib/supabase.js';
 
 export default async function handler(req: any, res: any) {
   if (req.method !== 'GET') return sendJson(res, 405, { error: 'Method not allowed' });
